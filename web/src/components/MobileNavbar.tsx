@@ -4,9 +4,14 @@ import {Link} from "react-router-dom";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {UserAccount} from "@/components/UserAccount.tsx";
+import {useConversation} from "@/hooks/useConversation.tsx";
+import {ModeToggle} from "@/components/ModeToggle.tsx";
 
 export const MobileNavbar = () => {
     const paths = useNavigation();
+    const {isActive} = useConversation();
+
+    if(isActive) return null;
 
     return (
         <Card
@@ -33,6 +38,9 @@ export const MobileNavbar = () => {
                             </li>
                         );
                     })}
+                    <li>
+                        <ModeToggle/>
+                    </li>
                     <li>
                         <UserAccount/>
                     </li>

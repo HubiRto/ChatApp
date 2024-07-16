@@ -4,13 +4,13 @@ import {Link} from "react-router-dom";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {UserAccount} from "@/components/UserAccount.tsx";
+import {ModeToggle} from "@/components/ModeToggle.tsx";
 
 export const DesktopNavbar = () => {
     const paths = useNavigation();
 
     return (
-        <Card
-            className="hidden lg:flex lg:flex-col lg:justify-between lg:items-center lg:h-full lg:w-16 lg:px-2 lg:py-4">
+        <Card className="hidden lg:flex lg:flex-col lg:justify-between lg:items-center lg:h-full lg:w-16 lg:px-2 lg:py-4">
             <nav>
                 <ul className="flex flex-col items-center gap-4">
                     {paths.map((path, id) => {
@@ -36,6 +36,7 @@ export const DesktopNavbar = () => {
                 </ul>
             </nav>
             <div className="flex flex-col items-center gap-4">
+                <ModeToggle/>
                 <UserAccount/>
             </div>
         </Card>

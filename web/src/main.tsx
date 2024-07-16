@@ -13,6 +13,7 @@ import ErrorPage from "@/pages/ErrorPage.tsx";
 import ConversationsPage from "@/pages/ConversationsPage.tsx";
 import ConversationPage from "@/pages/ConversationPage.tsx";
 import FriendsPage from "@/pages/FriendsPage.tsx";
+import {ThemeProvider} from "@/providers/ThemeProvider.tsx";
 
 
 const wrapWithProtectedRoute = (element: React.ReactNode) => <ProtectedRouteWrapper children={element}/>;
@@ -57,6 +58,8 @@ const router = createBrowserRouter(routes);
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <AuthProvider>
         <ToastProvider/>
-        <RouterProvider router={router}/>
+        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+            <RouterProvider router={router}/>
+        </ThemeProvider>
     </AuthProvider>
 )

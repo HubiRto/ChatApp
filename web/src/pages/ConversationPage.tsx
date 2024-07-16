@@ -1,7 +1,11 @@
+import {ConversationContainer} from "@/components/ConversationContainer.tsx";
+import {ItemList} from "@/components/ItemList.tsx";
+
 export default function ConversationPage() {
     return (
-        <div className="p-4">
-            Conversation page
-        </div>
+        <>
+            <ItemList title="Conversations">Conversation Page</ItemList>
+            <ConversationContainer>Conversation Page</ConversationContainer>
+        </>
     );
 };

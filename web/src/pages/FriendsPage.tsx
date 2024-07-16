@@ -1,7 +1,12 @@
+import {ItemList} from "@/components/ItemList.tsx";
+import {ConversationFallback} from "@/components/ConversationFallback.tsx";
+import {AddFriendDialog} from "@/components/ui/AddFriendDialog.tsx";
+
 export default function FriendsPage() {
     return (
-        <div className="p-4">
-            Friends page
-        </div>
+        <>
+            <ItemList title="Friends" action={<AddFriendDialog/>}>Friends Page</ItemList>
+            <ConversationFallback/>
+        </>
     );
 };
