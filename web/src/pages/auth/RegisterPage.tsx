@@ -30,13 +30,19 @@ const signUpSchema = z.object({
 type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 const RegisterPage = () => {
-    const {onRegister} = useAuth();
+    const {onRegister, authState} = useAuth();
     const [error, setError] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [isAfterRegistration, setIsAfterRegistration] = useState(false);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if(authState?.token) {
+            navigate("/");
+        }
+    }, [authState]);
 
     const {register, handleSubmit, setError: setFormError, formState: {errors}} = useReactHookForm<SignUpFormValues>({
         resolver: zodResolver(signUpSchema),

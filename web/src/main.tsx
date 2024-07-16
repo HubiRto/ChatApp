@@ -5,7 +5,6 @@ import {AuthProvider} from "@/providers/AuthContext.tsx";
 import {ToastProvider} from "@/providers/ToastProvider.tsx";
 import {ProtectedRouteWrapper} from "@/wrapper/ProtectedRouteWrapper.tsx";
 import {SidebarWrapper} from "@/wrapper/SidebarWrapper.tsx";
-import {IsLoginWrapper} from "@/wrapper/IsLoginWrapper.tsx";
 import React from "react";
 import HomePage from "@/pages/HomePage.tsx";
 import LoginPage from "@/pages/auth/LoginPage.tsx";
@@ -17,7 +16,6 @@ import FriendsPage from "@/pages/FriendsPage.tsx";
 
 
 const wrapWithProtectedRoute = (element: React.ReactNode) => <ProtectedRouteWrapper children={element}/>;
-const isLoginWrapper = (element: React.ReactNode) => <IsLoginWrapper children={element}/>;
 const sidebarWrapper = (element: React.ReactNode) => <SidebarWrapper children={element}/>;
 
 
@@ -41,8 +39,8 @@ const routesConfig = [
         wrappers: [wrapWithProtectedRoute, sidebarWrapper],
         errorElement: <ErrorPage/>
     },
-    {path: "/login", element: <LoginPage/>, wrappers: [isLoginWrapper], errorElement: <ErrorPage/>},
-    {path: "/register", element: <RegisterPage/>, wrappers: [isLoginWrapper], errorElement: <ErrorPage/>},
+    {path: "/login", element: <LoginPage/>, wrappers: [], errorElement: <ErrorPage/>},
+    {path: "/register", element: <RegisterPage/>, wrappers: [], errorElement: <ErrorPage/>},
 ];
 
 const composeWrappers = (wrappers: ((element: React.ReactNode) => React.ReactNode)[], element: React.ReactNode) =>

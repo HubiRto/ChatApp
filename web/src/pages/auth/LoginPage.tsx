@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Card} from "@/components/ui/card.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
@@ -22,10 +22,15 @@ type SignInFormValues = z.infer<typeof signInSchema>;
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const {onLogin} = useAuth();
+    const {onLogin, authState} = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+    useEffect(() => {
+        if(authState?.token) {
+            navigate("/");
+        }
+    }, [authState]);
 
     const {register, handleSubmit, setError: setFormError, formState: {errors}} = useReactHookForm<SignInFormValues>({
         resolver: zodResolver(signInSchema),
