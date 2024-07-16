@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: InventoryManagementApp
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc.lob.non_contextual_creation: true
+    open-in-view: true
+  mail:
+    host: "smtp.gmail.com"
+    port: 587
+    username: "YOUR_SMTP_USERNAME"
+    password: "YOUR_SMTP_PASSWORD"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        transport:
+          protocol: smtp
+        debug: true
+application:
+  security:
+    jwt:
+      secret-key: "YOUR_SECRET_KEY"
+      expiration: 86400000
+      refresh-token:
+        expiration: 604800000
