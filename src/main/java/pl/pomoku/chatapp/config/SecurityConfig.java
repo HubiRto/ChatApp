@@ -34,10 +34,7 @@ public class SecurityConfig {
         return http
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers(
-                            "/api/v1/auth/**",
-                            "/api/v1/auth/token/**"
-                    ).permitAll();
+                    request.requestMatchers("/api/v1/auth/**").permitAll();
                     request.anyRequest().authenticated();
                 })
                 .addFilterBefore(filter, BasicAuthenticationFilter.class)

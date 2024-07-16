@@ -2,6 +2,7 @@ package pl.pomoku.chatapp.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,8 +20,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(exception.getStatus()).body(exception.mapToErrorResponse());
     }
 
+    @ExceptionHandler(DisabledException.class)
+    public ResponseEntity<ErrorResponse> disabledExceptionHandler() {
+        return ResponseEntity.
+                status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorResponse("Account is disabled", LocalDateTime.now()));
+    }
+
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ErrorResponse> appExceptionHandler(AuthenticationException exception) {
+    public ResponseEntity<ErrorResponse> appExceptionHandler() {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(new ErrorResponse("Invalid email or password", LocalDateTime.now()));
