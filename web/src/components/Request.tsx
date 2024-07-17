@@ -5,9 +5,13 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import {Check, User, X} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
 
-type Props = React.PropsWithChildren<{ data: FriendRequestResponse }>;
+type Props = React.PropsWithChildren<{
+    data: FriendRequestResponse,
+    accept?: () => void;
+    decline?: () => void;
+}>;
 
-export const Request = ({data}: Props) => {
+export const Request = ({data, accept, decline}: Props) => {
     return (
         <Card className="w-full p-2 flex flex-row items-center justify-between gap-2">
             <div className="flex items-center gap-4 truncate">
@@ -23,12 +27,10 @@ export const Request = ({data}: Props) => {
                 </div>
             </div>
             <div className="flex items-center gap-2">
-                <Button size="icon" onClick={() => {
-                }}>
+                <Button size="icon" onClick={accept}>
                     <Check/>
                 </Button>
-                <Button size="icon" variant="destructive" onClick={() => {
-                }}>
+                <Button size="icon" variant="destructive" onClick={decline}>
                     <X className="h-4 w-4"/>
                 </Button>
             </div>

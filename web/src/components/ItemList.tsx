@@ -13,7 +13,7 @@ export const ItemList = ({children, title, action: Action}: Props) => {
 
     return (
         <Card className={cn("hidden h-full w-full lg:flex-none lg:w-80 p-2", {"block": !isActive, "lg:block": isActive})}>
-            <div className="mb-4 flex items-center justify-between">
+            <div className="mb-4 flex items-center justify-between p-1">
                 <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
                 {Action ? Action : null}
             </div>

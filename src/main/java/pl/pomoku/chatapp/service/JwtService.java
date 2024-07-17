@@ -78,6 +78,7 @@ public class JwtService {
         if(token.startsWith("Bearer ")) {
             token = token.substring(7);
         }
+
         return Jwts.parser()
                 .verifyWith(getSignInKey())
                 .build()

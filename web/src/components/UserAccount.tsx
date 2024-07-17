@@ -18,12 +18,10 @@ export const UserAccount = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                {user?.imageUrl && (
-                    <Avatar>
-                        <AvatarImage src={`${user.imageUrl}`} alt="@shadcn"/>
-                        <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                )}
+                <Avatar>
+                    <AvatarImage src={`${user?.imageUrl}`} alt="@shadcn"/>
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>

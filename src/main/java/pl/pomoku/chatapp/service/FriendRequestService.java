@@ -1,5 +1,6 @@
 package pl.pomoku.chatapp.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,38 @@ public class FriendRequestService {
     private final JwtService jwtService;
     private final FriendRequestRepository friendRequestRepository;
 
+    @Transactional
+    public void acceptFriendRequest(Long requestId) {
+        FriendRequest friendRequest = friendRequestRepository.findById(requestId)
+                .orElseThrow(() -> new AppException("Friend request does not exist", HttpStatus.NOT_FOUND));
+
+        friendRequest.setAccepted(true);
+        friendRequestRepository.save(friendRequest);
+
+        User sender = friendRequest.getSender();
+        User receiver = friendRequest.getReceiver();
+
+        sender.getFriends().add(receiver);
+        receiver.getFriends().add(sender);
+
+        userRepository.save(sender);
+        userRepository.save(receiver);
+    }
+
+    public void declineFriendRequest(Long requestId) {
+        FriendRequest friendRequest = friendRequestRepository.findById(requestId)
+                .orElseThrow(() -> new AppException("Friend request does not exist", HttpStatus.NOT_FOUND));
+
+        friendRequestRepository.delete(friendRequest);
+    }
+
+
+
     public List<FriendRequest> getFriendRequestsByToken(String token) {
         String senderEmail = jwtService.extractUsername(token);
         User user = userRepository.findByEmail(senderEmail)
                 .orElseThrow(() -> new UserNotFoundException(senderEmail));
-        return friendRequestRepository.findByReceiver(user);
+        return friendRequestRepository.findByReceiverAndAccepted(user, false);
     }
 
     public String sendRequest(AddFriendRequest addFriendRequest, String token) {
