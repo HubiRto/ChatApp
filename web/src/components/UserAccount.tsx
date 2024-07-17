@@ -13,15 +13,17 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import {useAuth} from "@/providers/AuthContext.tsx";
 
 export const UserAccount = () => {
-    const {onLogout} = useAuth();
+    const {onLogout, user} = useAuth();
 
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Avatar>
-                    <AvatarImage src="https://cdn-icons-png.flaticon.com/512/7077/7077313.png" alt="@shadcn"/>
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
+                {user?.imageUrl && (
+                    <Avatar>
+                        <AvatarImage src={`${user.imageUrl}`} alt="@shadcn"/>
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                )}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>

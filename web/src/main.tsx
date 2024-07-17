@@ -14,6 +14,7 @@ import ConversationsPage from "@/pages/ConversationsPage.tsx";
 import ConversationPage from "@/pages/ConversationPage.tsx";
 import FriendsPage from "@/pages/FriendsPage.tsx";
 import {ThemeProvider} from "@/providers/ThemeProvider.tsx";
+import {FriendsRequestProvider} from "@/providers/FriendRequestProvider.tsx";
 
 
 const wrapWithProtectedRoute = (element: React.ReactNode) => <ProtectedRouteWrapper children={element}/>;
@@ -59,7 +60,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <AuthProvider>
         <ToastProvider/>
         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-            <RouterProvider router={router}/>
+            <FriendsRequestProvider>
+                <RouterProvider router={router}/>
+            </FriendsRequestProvider>
         </ThemeProvider>
     </AuthProvider>
 )

@@ -11,6 +11,7 @@ import pl.pomoku.chatapp.exception.user.UserNotFoundException;
 import pl.pomoku.chatapp.repository.FriendRequestRepository;
 import pl.pomoku.chatapp.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,13 @@ public class FriendRequestService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final FriendRequestRepository friendRequestRepository;
+
+    public List<FriendRequest> getFriendRequestsByToken(String token) {
+        String senderEmail = jwtService.extractUsername(token);
+        User user = userRepository.findByEmail(senderEmail)
+                .orElseThrow(() -> new UserNotFoundException(senderEmail));
+        return friendRequestRepository.findByReceiver(user);
+    }
 
     public String sendRequest(AddFriendRequest addFriendRequest, String token) {
         String senderEmail = jwtService.extractUsername(token);
@@ -39,7 +47,7 @@ public class FriendRequestService {
             if (friendRequest.isAccepted()) {
                 throw new AppException("This user is already your friend", HttpStatus.BAD_REQUEST);
             } else {
-                throw new AppException("Request already send", HttpStatus.BAD_REQUEST);
+                throw new AppException("Request.tsx already send", HttpStatus.BAD_REQUEST);
             }
         }
 

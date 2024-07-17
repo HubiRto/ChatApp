@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
-    private String email;
-    private String firstName;
-    private String lastName;
+public class FriendRequestResponse {
+    private Long id;
     private String imageUrl;
+    private String fullName;
+    private String email;
 }

@@ -69,7 +69,8 @@ public class User implements UserDetails{
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FriendRequest> receivedRequests = new ArrayList<>();
 
-
+    @Column(nullable = false, name = "image_url")
+    private String imageUrl;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -5,9 +5,11 @@ import org.springframework.stereotype.Repository;
 import pl.pomoku.chatapp.entity.FriendRequest;
 import pl.pomoku.chatapp.entity.User;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface FriendRequestRepository extends JpaRepository<FriendRequest, Long> {
     Optional<FriendRequest> findBySenderAndReceiver(User sender, User receiver);
+    List<FriendRequest> findByReceiver(User receiver);
 }
